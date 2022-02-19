@@ -136,11 +136,11 @@ class Incubator():
 
 def unit_test():
     args = dotdict({
-        'numEpochs': 5,
-        'numIterations': 20,
-        'replaceNetThreshold': 0.55,
-        'numMCTSRuns': 40,
+        'numEpochs': 3,
+        'numIterations': 10,
+        'numMCTSRuns': 5,
         'numBattles': 20,
+        'replaceNetThreshold': 0.55,
         'cpuct': 1,
         'maxNumEpochTrainExamples': 5,
         'tempThreshold': 4,
@@ -156,7 +156,7 @@ def unit_test():
     net = TicTacToeNet(game, netArgs)    
     bot = Bot(game, net, args)
 
-    botDirectoryPath = "./experiments/2021-12-31-15:54:17/bot3"
+    botDirectoryPath = "./experiments/2022-02-19-21:59:00/bot0"
     bot.load(botDirectoryPath)
     
     incubator = Incubator(bot, args)

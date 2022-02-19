@@ -12,13 +12,13 @@ def main():
 
     # reinforcement learning and MCTS parameters
     args = dotdict({
-        'numEpochs': 4,                 # number of epochs
+        'numEpochs': 3,                 # number of epochs
         'numIterations': 20,            # number of self-played games per epoch
-        'numMCTSRuns': 40,              # number of MCTS runs per move in game
+        'numMCTSRuns': 10,              # number of MCTS runs per move in game
         'numBattles': 20,               # number of games for bot replacement
         'replaceNetThreshold': 0.55,    # win rate threshold for bot replacement        
         'cpuct': 1,                     # upper confidence bound exploration hyperparameter 
-        'maxNumEpochTrainExamples': 4,  # number of epochs recorded
+        'maxNumEpochTrainExamples': 3,  # number of epochs recorded
         'tempThreshold': 4,             # number of exploration moves before picking the move with the maximum simulation counts in game
     })
 
