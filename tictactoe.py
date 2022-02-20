@@ -24,7 +24,7 @@ class TicTacToe(Game):
             board[rowIdx, colIdx] = player
         return board
 
-    def get_outcome(self, board, player):
+    def get_outcome(self, board):
         for i in range(self.n):
             if np.sum(board[i, :]) == self.n or np.sum(board[:, i]) == self.n:
                 return 1
@@ -100,7 +100,7 @@ def unit_test():
         assert 0 <= action < game.get_action_size() and validActions[action] == 1
         board = game.get_next_board(board, player, action)
         game.display_board(board)
-        outcome = game.get_outcome(board, player)
+        outcome = game.get_outcome(board)
         if outcome != None:
             if outcome == 1: print("O win")
             elif outcome == -1: print("X win")

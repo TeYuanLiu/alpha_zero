@@ -101,13 +101,17 @@ def unit_test():
 
     newNet = TicTacToeNet.from_net(net)
     
-    predP, predV = newNet.predict(canonicalBoard)
-    print(f'cloned predV: {predV}')
+    predP2, predV2 = newNet.predict(canonicalBoard)
+    print(f'cloned predV: {predV2}')
+
+    assert predV == predV2 and predP == predP2
     
     trainExamples = [[[canonicalBoard, pi, v]]]
     newNet.train(trainExamples)
-    predP, predV = newNet.predict(canonicalBoard)
-    print(f'trained cloned predV: {predV}') 
+    predP3, predV3 = newNet.predict(canonicalBoard)
+    print(f'trained cloned predV: {predV3}') 
+
+    assert predV != predV3 and predP != predP3
     
     print('======= UNIT TEST END =======') 
 

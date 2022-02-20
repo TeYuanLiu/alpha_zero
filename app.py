@@ -1,10 +1,11 @@
 import logging
+from urllib import response
 from bot import Bot
 from tictactoe import TicTacToe
 from tictactoenet import TicTacToeNet
 from utils import *
 import numpy as np
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from os import environ
 
@@ -45,41 +46,32 @@ def factory():
 
     @app.route("/")
     def welcome():
-        return f'Welcome to the Alpha TicTacToe Zero API'
+        return f'Welcome to the Alpha TicTacToe Zero Server'
 
-    @app.route("/api/easy/<query>")
-    def handle_query_easy(query=None):
-        board = np.zeros((3, 3))
-        if not (query and len(query) == 9): return f'query length is not valid'
-        for r in range(3):
-            for c in range(3):
-                d = query[3*r + c]
-                if d == 'o': board[r][c] = 1
-                elif d == 'x': board[r][c] = -1
-                elif d == '-': continue
-                else: return f'query symbol at index {r * 3 + c} is not valid'
-        if game.get_outcome(board, 1) != None: return f'game has ended'
-        canonicalBoard = game.get_canonical_board(board, 1)
-        pi = botEasy.get_pi(canonicalBoard, temp=0)
-        a = np.random.choice(len(pi), p=pi)
-        return f'{a}'
-
-    @app.route("/api/hard/<query>")
-    def handle_query_hard(query=None):
-        board = np.zeros((3, 3))
-        if not (query and len(query) == 9): return f'query length is not valid'
-        for r in range(3):
-            for c in range(3):
-                d = query[3*r + c]
-                if d == 'o': board[r][c] = 1
-                elif d == 'x': board[r][c] = -1
-                elif d == '-': continue
-                else: return f'query symbol at index {r * 3 + c} is not valid'
-        if game.get_outcome(board, 1) != None: return f'game has ended'
-        canonicalBoard = game.get_canonical_board(board, 1)
-        pi = botHard.get_pi(canonicalBoard, temp=0)
-        a = np.random.choice(len(pi), p=pi)
-        return f'{a}'
+    @app.route('/api', methods=["GET", 'POST'])
+    def api():
+        if request.method == "POST":
+            dic = request.get_json()
+            if 'botIsO' not in dic or 'easyMode' not in dic or 'boardString' not in dic: return f"request is not valid"
+            print(dic)
+            botIsO, easyMode, boardString = dic['botIsO'], dic['easyMode'], dic['boardString']
+            board = np.zeros((3, 3))
+            if not (boardString and len(boardString) == 9): return f'boardString length is not valid'
+            for r in range(3):
+                for c in range(3):
+                    d = boardString[3*r + c]
+                    if d == 'o': board[r][c] = 1
+                    elif d == 'x': board[r][c] = -1
+                    elif d == '-': continue
+                    else: return f'boardString value at index {r * 3 + c} is not valid'
+            if game.get_outcome(board) != None: return f'game has ended'
+            canonicalBoard = game.get_canonical_board(board, 1) if botIsO == "true" else game.get_canonical_board(board, -1)
+            pi = botEasy.get_pi(canonicalBoard, temp=0) if easyMode == "true" else botHard.get_pi(canonicalBoard, temp=0)
+            a = np.random.choice(len(pi), p=pi)
+            return f"{a}", 200
+        else:
+            message = {"greeting": "Hello from the API"}
+            return jsonify(message)
 
     return app
     

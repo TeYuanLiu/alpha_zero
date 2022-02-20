@@ -50,7 +50,7 @@ class Bot():
             logger.debug(f'action: {action}')
             board = self.game.get_next_board(board, player, action)
 
-            outcome = self.game.get_outcome(board, player)
+            outcome = self.game.get_outcome(board)
             if outcome != None:
                 logger.debug(f'======= outcome =======')
                 if outcome == 1: logger.debug(f'player {outcome} win')
@@ -78,7 +78,7 @@ class Bot():
     def search(self, canonicalBoard, s):
         logger.debug(f'===== search =====')
         if s not in self.Es:
-            self.Es[s] = self.game.get_outcome(canonicalBoard, 1)
+            self.Es[s] = self.game.get_outcome(canonicalBoard)
         
         if self.Es[s] != None:
             logger.debug(f'=== leaf backup ===')

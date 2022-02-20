@@ -14,7 +14,7 @@ class Game():
     def get_next_board(self, board, player, action):
         pass
 
-    def get_outcome(self, board, player):
+    def get_outcome(self, board):
         pass
 
     def get_board_string(self, canonicalBoard):

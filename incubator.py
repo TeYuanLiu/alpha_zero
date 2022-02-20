@@ -46,6 +46,7 @@ class Incubator():
                 logger.info(f'= iteration idx: {j} =')
                 epochTrainExamples.extend(self.bot.self_play())
             trainExamples.append(epochTrainExamples)
+            assert self.args.maxNumEpochTrainExamples >= 1
             if len(trainExamples) > self.args.maxNumEpochTrainExamples:
                 trainExamples.popleft()
                 assert len(trainExamples) <= self.args.maxNumEpochTrainExamples
@@ -114,7 +115,7 @@ class Incubator():
 
                     if newBot == None: self.game.display_board(board)              
 
-                    outcome = self.game.get_outcome(board, player)
+                    outcome = self.game.get_outcome(board)
                     if outcome != None:
                         logger.debug(f'=== outcome ===')
                         if outcome == 1: 
@@ -142,7 +143,7 @@ def unit_test():
         'numBattles': 20,
         'replaceNetThreshold': 0.55,
         'cpuct': 1,
-        'maxNumEpochTrainExamples': 5,
+        'maxNumEpochTrainExamples': 3,
         'tempThreshold': 4,
     })
 
@@ -155,12 +156,9 @@ def unit_test():
     game = TicTacToe()
     net = TicTacToeNet(game, netArgs)    
     bot = Bot(game, net, args)
-
-    botDirectoryPath = "./experiments/2022-02-19-21:59:00/bot0"
-    bot.load(botDirectoryPath)
     
     incubator = Incubator(bot, args)
-    #incubator.train()
+    incubator.train()
     incubator.battle()
     
     print('======= UNIT TEST END =======') 
