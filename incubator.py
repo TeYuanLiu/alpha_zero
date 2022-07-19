@@ -34,11 +34,7 @@ class Incubator():
         trainLosses = []
         trainExamples = deque()
         for i in range(self.args.numEpochs):
-            logger.info(f'=== epoch idx: {i} ===')    
-
-            # create bot directory
-            botDirectoryPath = os.path.join(experimentDirectoryPath, 'bot' + str(i))
-            Path(botDirectoryPath).mkdir(parents=True, exist_ok=True)                  
+            logger.info(f'=== epoch idx: {i} ===')                    
 
             # generate play data
             epochTrainExamples = []
@@ -67,6 +63,10 @@ class Incubator():
             else:                
                 logger.info(f'accept new bot')
                 self.bot = newBot
+            
+            # create bot directory and save the bot
+            botDirectoryPath = os.path.join(experimentDirectoryPath, 'bot' + str(i))
+            Path(botDirectoryPath).mkdir(parents=True, exist_ok=True)
             
             self.bot.save(botDirectoryPath)
         
