@@ -14,16 +14,17 @@ import logging
 import os
 from pathlib import Path
 
+from net import Net
+
 tensorflow.random.set_seed(1)
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-class TicTacToeNet():
+class TicTacToeNet(Net):
     def __init__(self, game, args, modelWeights=None):
-        self.game = game
-        self.args = args
+        Net.__init__(self, game, args)
         self.boardWidth, self.boardHeight = self.game.get_board_shape()
         self.actionSize = self.game.get_action_size()
         self.model = None
@@ -104,14 +105,14 @@ def unit_test():
     predP2, predV2 = newNet.predict(canonicalBoard)
     print(f'cloned predV: {predV2}')
 
-    assert predV == predV2 and predP == predP2
+    assert predV == predV2 and np.array_equal(predP, predP2)
     
     trainExamples = [[[canonicalBoard, pi, v]]]
     newNet.train(trainExamples)
     predP3, predV3 = newNet.predict(canonicalBoard)
     print(f'trained cloned predV: {predV3}') 
 
-    assert predV != predV3 and predP != predP3
+    assert predV != predV3 and not np.array_equal(predP, predP3)
     
     print('======= UNIT TEST END =======') 
 

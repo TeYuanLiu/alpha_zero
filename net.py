@@ -3,7 +3,8 @@ class Net():
     This is the base class of Neural Network. Write your own net by implmenting the functions below.
     '''
     def __init__(self, game, args):
-        pass
+        self.game = game
+        self.args = args
 
     @classmethod
     def from_net(cls, net):
