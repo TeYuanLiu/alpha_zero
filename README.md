@@ -1,4 +1,4 @@
-# alpha-zero
+# alpha_zero
 
 A simplified implementation of the [AlphaGo Zero paper](https://www.nature.com/articles/nature24270.epdf?author_access_token=VJXbVjaSHxFoctQQ4p2k4tRgN0jAjWel9jnR3ZoTv0PVW4gB86EEpGqTRDtpIz-2rmo8-KG06gqVobU5NSCFeHILHcVFUeMsbvwS-lxjqQGg98faovwjxeTUgZAUMnRQ) for game TicTacToe, based on [Surag Nair](https://github.com/suragnair)'s reinforcement learning logic and [Evgeny Tyurin](https://github.com/evg-tyurin)'s TicTacToe game logic. Surag's and Evgeny's work can be found [here](https://github.com/suragnair/alpha-zero-general).
 
