@@ -8,7 +8,7 @@ A simplified implementation of the [AlphaGo Zero paper](https://www.nature.com/a
 
 - `bot.py` defines the class `Bot`, which gets the game logic from `tictactoe.py` and the neural network from `tictactoenet.py` to do Monte Carlo tree search (MCTS) and find the best action given a game state.
 
-- `incubator.py` contains the reinforcement learning logic for training and the battle logic for bot vs bot or bot vs human player.
+- `incubator.py` contains the reinforcement learning logic for training and the battle logic for bot vs bot and bot vs human player.
 
 - `main.py` demonstrates how to set parameters and conduct an end-to-end experiment including bot initialization, training, and evaluation.
 
@@ -19,13 +19,13 @@ A simplified implementation of the [AlphaGo Zero paper](https://www.nature.com/a
 1.  Open a terminal and clone the repository.
 
     ```
-    $ git clone https://github.com/Te-YuanLiu/alpha-zero.git
+    $ git clone https://github.com/Te-YuanLiu/alpha_zero.git
     ```
 
 2.  Change directory into the cloned repository.
 
     ```
-    $ cd alpha-zero/
+    $ cd alpha_zero/
     ```
 
 3.  Create a python virtual environment and install all the required packages.
